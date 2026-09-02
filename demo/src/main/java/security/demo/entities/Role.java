@@ -3,14 +3,16 @@ package security.demo.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.jspecify.annotations.Nullable;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Objects;
 
-@Getter
+
 @Setter
 @Entity
 @Table(name = "tb_role")
-public class Role {
+public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,5 +37,14 @@ public class Role {
     @Override
     public int hashCode() {
         return Objects.hashCode(authority);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    @Override
+    public @Nullable String getAuthority() {
+        return authority;
     }
 }
