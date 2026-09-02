@@ -39,12 +39,9 @@ public class Role implements GrantedAuthority {
         return Objects.hashCode(authority);
     }
 
-    public long getId() {
-        return id;
-    }
-
     @Override
     public @Nullable String getAuthority() {
-        return authority;
+        return "";
     }
+
 }
