@@ -1,4 +1,4 @@
-package security.dto;
+package security.demo.dto;
 
 public class ProductDTO {
 }

@@ -1,4 +1,4 @@
-package security.entities;
+package security.demo.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;

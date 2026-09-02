@@ -1,10 +1,10 @@
-package security.controllers;
+package security.demo.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import security.dto.ProductDTO;
-import security.services.productService;
+import security.demo.dto.ProductDTO;
+import security.demo.services.productService;
 
 import java.net.URI;
 import java.util.List;
@@ -16,7 +16,7 @@ public class ProductController {
 
 
     public ResponseEntity<List<ProductDTO>> findAll(){
-    List<ProductDTO> List = productService.findAll();
+    List<ProductDTO> List = productServiceduc.findAll();
     return ResponseEntity.ok(list);
     }
 
