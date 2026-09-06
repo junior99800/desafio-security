@@ -7,6 +7,7 @@ import security.demo.entities.User;
 import security.demo.projections.UserDetailsProjection;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -20,4 +21,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 			WHERE tb_user.email = :email
 		""")
     List<UserDetailsProjection> searchUserAndRolesByEmail(String email);
+
+
+	Optional<User> findByEmail(String email);
 }

@@ -1,4 +1,4 @@
 package security.demo.services;
 
-public class productService {
+public class ProductService {
 }

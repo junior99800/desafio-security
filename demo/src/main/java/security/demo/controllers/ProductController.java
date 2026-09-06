@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import security.demo.dto.ProductDTO;
-import security.demo.services.productService;
+import security.demo.services.ProductService;
 
 import java.net.URI;
 import java.util.List;
@@ -22,13 +22,13 @@ public class ProductController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<List<ProductDTO>> findById(@PathVariable Long id){
-        ProductDTO dto = productService.findById(id);
+        ProductDTO dto = ProductService.findById(id);
         return ResponseEntity.ok(dto);
     }
 
     @PostMapping
     public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO dto) {
-        dto = productService.insert(dto);
+        dto = ProductService.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id")
                 .buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
