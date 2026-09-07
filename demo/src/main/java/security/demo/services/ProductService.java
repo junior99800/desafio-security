@@ -1,6 +1,7 @@
 package security.demo.services;
 
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import security.demo.dto.CategoryDTO;
@@ -12,7 +13,16 @@ import security.demo.repository.ProductRepository;
 
 public class ProductService {
 
+    @Autowired
     private ProductRepository repository;
+
+    @Transactional
+    public ProductDTO findById(Long id){
+        Product product = repository.findById(id).orElseThrow(
+                () -> new RumtimeNotFoundExeception("Recuso não encontrado")
+        return new ProductDTO(product);
+
+    }
 
     @Transactional(readOnly = true)
     public Page<ProductMinDTO> findAll(String name, Pageable pageable) {
