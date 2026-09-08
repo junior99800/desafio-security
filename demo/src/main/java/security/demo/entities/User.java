@@ -61,6 +61,8 @@ public class User implements UserDetails {
         return Objects.equals(id, user.id);
     }
 
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;

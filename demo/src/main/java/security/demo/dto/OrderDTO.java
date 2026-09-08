@@ -1,8 +1,10 @@
 package security.demo.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import security.demo.entities.Order;
 import security.demo.entities.OrderItem;
+import security.demo.entities.OrderStatus;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -16,6 +18,8 @@ public class OrderDTO {
     private OrderStatus status;
     private ClientDTO client;
     private PaymentDTO payment;
+
+    @NotEmpty(message = "Deve ter pelo menos uma categoria")
     private List<OrderItemDTO> items = new ArrayList<>();
 
     public OrderDTO(Long id, Instant moment, OrderStatus status, ClientDTO client, PaymentDTO payment) {
