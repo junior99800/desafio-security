@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
 import jakarta.servlet.http.HttpServletRequest;
+import security.demo.dto.CustomErrorDTO;
+import security.demo.dto.ValidationErrorDTO;
 import security.demo.services.exception.DatabaseException;
 import security.demo.services.exception.ForbiddenException;
 import security.demo.services.exception.ResourceNotFoundException;
