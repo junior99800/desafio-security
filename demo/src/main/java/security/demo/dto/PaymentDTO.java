@@ -1,10 +1,12 @@
 package security.demo.dto;
 
+import lombok.Getter;
 import security.demo.entities.Payment;
 import security.demo.entities.User;
 
 import java.time.Instant;
 
+@Getter
 public class PaymentDTO {
 
     private Long id;

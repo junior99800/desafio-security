@@ -1,12 +1,15 @@
 package security.demo.services;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import security.demo.dto.OrderDTO;
 import security.demo.dto.OrderItemDTO;
-import security.demo.dto.ProductDTO;
-import security.demo.entities.*;
+import security.demo.entities.Order;
+import security.demo.entities.OrderItem;
+import security.demo.entities.OrderStatus;
+import security.demo.entities.Product;
+import security.demo.entities.User;
 import security.demo.repository.OrderItemRepository;
 import security.demo.repository.Orderepository;
 import security.demo.repository.ProductRepository;
@@ -33,16 +36,18 @@ public class OrderService  {
     @Autowired
     private AuthService authService;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public OrderDTO findById(Long id){
         Order order = repository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Recuso não encontrado"));
-        authService.validateSelforAdmin(order.getClient().getId());
+                () -> new ResourceNotFoundException("Recurso não encontrado"));
+        authService.validateSelfOrAdmin(order.getClient().getId());
         return new OrderDTO(order);
 
     }
 
+    @Transactional
     public OrderDTO insert(OrderDTO dto) {
+
         Order order = new Order();
 
         order.setMoment(Instant.now());
@@ -51,11 +56,12 @@ public class OrderService  {
         User user = userService.authenticated();
         order.setClient(user);
 
-        for (OrderItemDTO itemDTO : dto.getItems()) {
-            Product product = productRepository.getReferenceById(itemDTO.getProductId());
-            OrderItem item = new OrderItem(order, product, itemDTO.getQuantity(), product.getPrice());
+        for (OrderItemDTO itemDto : dto.getItems()) {
+            Product product = productRepository.getReferenceById(itemDto.getProductId());
+            OrderItem item = new OrderItem(order, product, itemDto.getQuantity(), product.getPrice());
             order.getItems().add(item);
         }
+
         repository.save(order);
         orderItemRepository.saveAll(order.getItems());
 

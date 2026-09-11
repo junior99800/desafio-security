@@ -44,13 +44,14 @@ import org.springframework.security.oauth2.server.authorization.token.OAuth2Toke
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.devsuperior.dscommerce.config.customgrant.CustomPasswordAuthenticationConverter;
-import com.devsuperior.dscommerce.config.customgrant.CustomPasswordAuthenticationProvider;
-import com.devsuperior.dscommerce.config.customgrant.CustomUserAuthorities;
+
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import security.demo.config.customgrant.CustomPasswordAuthenticationConverter;
+import security.demo.config.customgrant.CustomPasswordAuthenticationProvider;
+import security.demo.config.customgrant.CustomUserAuthorities;
 
 @Configuration
 public class AuthorizationServerConfig {
@@ -75,9 +76,9 @@ public class AuthorizationServerConfig {
 
 		// @formatter:off
 		http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
-			.tokenEndpoint(tokenEndpoint -> tokenEndpoint
-				.accessTokenRequestConverter(new CustomPasswordAuthenticationConverter())
-				.authenticationProvider(new CustomPasswordAuthenticationProvider(authorizationService(), tokenGenerator(), userDetailsService, passwordEncoder())));
+				.tokenEndpoint(tokenEndpoint -> tokenEndpoint
+						.accessTokenRequestConverter(new CustomPasswordAuthenticationConverter())
+						.authenticationProvider(new CustomPasswordAuthenticationProvider(authorizationService(), tokenGenerator(), userDetailsService, passwordEncoder())));
 
 		http.oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer.jwt(Customizer.withDefaults()));
 		// @formatter:on
@@ -104,15 +105,15 @@ public class AuthorizationServerConfig {
 	RegisteredClientRepository registeredClientRepository() {
 		// @formatter:off
 		RegisteredClient registeredClient = RegisteredClient
-			.withId(UUID.randomUUID().toString())
-			.clientId(clientId)
-			.clientSecret(passwordEncoder().encode(clientSecret))
-			.scope("read")
-			.scope("write")
-			.authorizationGrantType(new AuthorizationGrantType("password"))
-			.tokenSettings(tokenSettings())
-			.clientSettings(clientSettings())
-			.build();
+				.withId(UUID.randomUUID().toString())
+				.clientId(clientId)
+				.clientSecret(passwordEncoder().encode(clientSecret))
+				.scope("read")
+				.scope("write")
+				.authorizationGrantType(new AuthorizationGrantType("password"))
+				.tokenSettings(tokenSettings())
+				.clientSettings(clientSettings())
+				.build();
 		// @formatter:on
 
 		return new InMemoryRegisteredClientRepository(registeredClient);
@@ -122,9 +123,9 @@ public class AuthorizationServerConfig {
 	TokenSettings tokenSettings() {
 		// @formatter:off
 		return TokenSettings.builder()
-			.accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED)
-			.accessTokenTimeToLive(Duration.ofSeconds(jwtDurationSeconds))
-			.build();
+				.accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED)
+				.accessTokenTimeToLive(Duration.ofSeconds(jwtDurationSeconds))
+				.build();
 		// @formatter:on
 	}
 
@@ -156,8 +157,8 @@ public class AuthorizationServerConfig {
 			if (context.getTokenType().getValue().equals("access_token")) {
 				// @formatter:off
 				context.getClaims()
-					.claim("authorities", authorities)
-					.claim("username", user.getUsername());
+						.claim("authorities", authorities)
+						.claim("username", user.getUsername());
 				// @formatter:on
 			}
 		};

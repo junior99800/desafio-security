@@ -2,11 +2,9 @@ package security.demo.dto;
 
 
 import lombok.Getter;
-import lombok.Setter;
 import security.demo.entities.Product;
 
 @Getter
-@Setter
 public class ProductMinDTO {
 
     private Long id;
@@ -22,9 +20,9 @@ public class ProductMinDTO {
     }
 
     public ProductMinDTO(Product entity) {
-        id = getId();
-        name = getName();
-        price = getPrice();
-        imgUrl = getImgUrl();
+        id = entity.getId();
+        name = entity.getName();
+        price = entity.getPrice();
+        imgUrl = entity.getImgUrl();
     }
 }

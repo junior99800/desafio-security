@@ -1,13 +1,12 @@
 package security.demo.controllers;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import security.demo.dto.CategoryDTO;
-import security.demo.dto.ProductDTO;
-import security.demo.dto.ProductMinDTO;
 import security.demo.services.CategoryService;
 
 
@@ -19,6 +18,7 @@ import java.util.List;
 @RequestMapping(value = "/categories")
 public class CategoryController {
 
+    @Autowired
     private CategoryService service;
 
 

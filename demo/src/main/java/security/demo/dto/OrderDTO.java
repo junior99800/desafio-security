@@ -22,6 +22,10 @@ public class OrderDTO {
     @NotEmpty(message = "Deve ter pelo menos uma categoria")
     private List<OrderItemDTO> items = new ArrayList<>();
 
+    public OrderDTO() {
+    }
+
+
     public OrderDTO(Long id, Instant moment, OrderStatus status, ClientDTO client, PaymentDTO payment) {
         this.id = id;
         this.moment = moment;
@@ -37,11 +41,10 @@ public class OrderDTO {
         this.client = new ClientDTO(entity.getClient());
         this.payment = (entity.getPayment() == null) ? null : new PaymentDTO(entity.getPayment());
         for (OrderItem item : entity.getItems()) {
-            OrderItemDTO itemDTO = new OrderItemDTO(null);
-            items.add(itemDTO);
+            OrderItemDTO itemDto = new OrderItemDTO(item);
+            items.add(itemDto);
         }
     }
-
     public Double getTotal() {
         double sum = 0.0;
         for(OrderItemDTO item : items){

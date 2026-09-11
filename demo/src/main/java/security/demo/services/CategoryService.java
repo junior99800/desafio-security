@@ -1,19 +1,18 @@
 package security.demo.services;
 
-import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import security.demo.dto.CategoryDTO;
-import security.demo.dto.ProductDTO;
-import security.demo.dto.ProductMinDTO;
 import security.demo.entities.Category;
-import security.demo.entities.Product;
 import security.demo.repository.CategoryRepository;
-import security.demo.repository.ProductRepository;
+
 
 import java.util.List;
 
+@Service
 public class CategoryService {
 
     @Autowired

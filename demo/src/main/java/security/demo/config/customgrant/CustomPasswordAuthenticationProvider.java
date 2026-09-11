@@ -29,7 +29,7 @@ import org.springframework.security.oauth2.server.authorization.token.DefaultOAu
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
 import org.springframework.util.Assert;
-import security.demo.config.customgrant.CustomUserAuthorities;
+
 
 public class CustomPasswordAuthenticationProvider implements AuthenticationProvider {
 
@@ -55,8 +55,8 @@ public class CustomPasswordAuthenticationProvider implements AuthenticationProvi
 	
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		
-		com.devsuperior.dscommerce.config.customgrant.CustomPasswordAuthenticationToken customPasswordAuthenticationToken = (CustomPasswordAuthenticationToken) authentication;
+
+		security.demo.config.customgrant.CustomPasswordAuthenticationToken customPasswordAuthenticationToken = (CustomPasswordAuthenticationToken) authentication;
 		OAuth2ClientAuthenticationToken clientPrincipal = getAuthenticatedClientElseThrowInvalidClient(customPasswordAuthenticationToken);
 		RegisteredClient registeredClient = clientPrincipal.getRegisteredClient();
 		String username = customPasswordAuthenticationToken.getUsername();
